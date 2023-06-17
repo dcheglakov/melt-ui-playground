@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { createAccordion } from '@melt-ui/svelte';
 	import { slide } from 'svelte/transition';
-	import { get } from 'svelte/store';
 
 	const { content, item, trigger, isSelected, root } = createAccordion();
 
@@ -22,39 +21,30 @@
 			content: 'Yes! You can use the transition prop to configure the animation.'
 		}
 	];
-	// const itemStore = get(item);
 </script>
 
 <div class="container m-auto py-12">
-	<div class="w-full rounded-md overflow-hidden bg-[--line-color] shadow-lg" {...root}>
-		{#each accordion as item}
-			<div {...$item(item.id)} class="accordion-item">
-				<h3 class="flex">
-					<button {...$trigger(item.id)} class="accordion-trigger">{item.title}</button>
+	<div {...root}>
+		{#each accordion as accordionItem, i}
+			<div {...$item(accordionItem.id)}>
+				<h3>
+					<button
+						{...$trigger(accordionItem.id)}
+						class="flex gap-2 items-center w-full text-left px-3 py-2 hover:bg-gray-100 transition-colors rounded-md {$isSelected(
+							accordionItem.id
+						)
+							? 'bg-gray-100'
+							: ''}"
+						>{(i + 1).toString().padStart(2, '0')}.<span class="flex-1">{accordionItem.title}</span>
+						{$isSelected(accordionItem.id) ? '-' : '+'}</button
+					>
 				</h3>
-				{#if $isSelected(item.id)}
-					<div class="accordion-content" {...$content(item.id)} transition:slide|local>
-						<div class="px-5 py-4">{item.content}</div>
+				{#if $isSelected(accordionItem.id)}
+					<div {...$content(accordionItem.id)} transition:slide|local class="px-4">
+						<p class="border-l-2 border-gray-100 py-2 px-3">{accordionItem.content}</p>
 					</div>
 				{/if}
 			</div>
 		{/each}
 	</div>
 </div>
-
-<style lang="postcss">
-	.accordion-item {
-		@apply mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b 
-				focus-within:relative focus-within:z-10 focus-within:ring focus-within:ring-gray-400;
-	}
-
-	.accordion-trigger {
-		@apply flex h-12 flex-1  cursor-pointer items-center
-				justify-between bg-white px-5 text-base font-medium leading-none text-gray-700
-				outline-none hover:bg-gray-100;
-	}
-
-	.accordion-content {
-		@apply overflow-hidden bg-gray-100 text-sm text-gray-900;
-	}
-</style>
