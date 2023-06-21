@@ -11,4 +11,13 @@ declare global {
 	}
 }
 
+export type OfferType = {
+	title: string;
+	description: string;
+	price: string;
+	href: string;
+	qr: string;
+	customDetails?: string;
+};
+
 export {};
