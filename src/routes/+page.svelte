@@ -7,14 +7,11 @@
 	<section class="flex flex-col gap-3">
 		<h2 class="text-2xl font-medium">Demos</h2>
 		<div class="grid grid-cols-3 gap-3">
-			<a href="/demos/accordion" class="bg-gray-50 p-4 rounded-lg">
-				<article>Accordion</article>
+			<a href="/demos/tabs" class="bg-gray-50 p-4 rounded-lg">
+				<article>Tabs</article>
 			</a>
 			<a href="/demos/dialog" class="bg-gray-50 p-4 rounded-lg">
 				<article>Dialog</article>
-			</a>
-			<a href="/demos/select" class="bg-gray-50 p-4 rounded-lg">
-				<article>Select</article>
 			</a>
 		</div>
 	</section>
